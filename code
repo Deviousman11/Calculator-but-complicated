@@ -1,0 +1,49 @@
+/**
+ * Calculates the result of a given math problem.
+ *
+ * @param {string} problem - The math problem to be solved.
+ * @returns {number} The result of the math problem.
+ * @throws {Error} Throws an error if the math problem is invalid or cannot be solved.
+ */
+function calculateMathProblem(problem) {
+    // Remove any whitespace from the problem string
+    problem = problem.replace(/\s/g, '');
+
+    // Validate the problem string
+    if (!isValidMathProblem(problem)) {
+        throw new Error("Invalid math problem.");
+    }
+
+    // Solve the math problem
+    let result = eval(problem);
+
+    // Check if the result is a valid number
+    if (isNaN(result) || !isFinite(result)) {
+        throw new Error("Cannot solve the math problem.");
+    }
+
+    return result;
+}
+
+/**
+ * Validates a math problem string.
+ *
+ * @param {string} problem - The math problem to be validated.
+ * @returns {boolean} True if the math problem is valid, false otherwise.
+ */
+function isValidMathProblem(problem) {
+    // Regular expression pattern to validate the math problem
+    let pattern = /^[-+*/()\d\s]+$/;
+
+    return pattern.test(problem);
+}
+
+// Usage Example
+
+try {
+    let problem = "2 + 3 * (4 - 1)";
+    let result = calculateMathProblem(problem);
+    console.log(`The result of the math problem "${problem}" is: ${result}`);
+} catch (error) {
+    console.error(error.message);
+}
